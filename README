@@ -1,1 +1,9 @@
-message
+Inscription :
+	On créé des variables d'erreurs qui vont être affiché et modifié en fonction de l'erreur rencontrée. On regard d'abord si l'email existe, ensuite on regarde si tous les champs sont rempli, puis on regarde si le mot de passe et sa confirmation son égales, si l'email et différent du mot de passe on va regarder si l'email n'existe pas, ensuite on regarde la longueur du mot de passe et de l'email s'il ne dépasse pas 60 caractères. Si toutes les étapes on été validé, on insert le formulaire dans la BDD et dit qu'il est créé.
+
+Recherche (avec recherche avancée) : 
+	Dans l'index: On regarde si une recherche a été saisi (formulaire de recherche dans le footer), on explode pour classer tous les mots saisi dans un tableau, on parcours le tableau mot-à-mot et on commence les requêtes SQL pour parcourir la BDD et rechercher les mots avec un LIKE, si rien n'a été entré, on affiche toute la BDD.
+
+	
+Problem rencontré :
+	Inscription : si chaîne (mdp & email) commence par un nombre >60, erreur.
