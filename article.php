@@ -14,19 +14,26 @@ if($connect != true){
 if(isset($_POST['titre'])){
 	
 	/*TRAITEMENTS*/
-	if(isset($_POST['id'])){ // si id existe alors on modifie
+	
+	// si id existe alors on modifie
+	if(isset($_POST['id'])){ 
+		//pour éviter les injections de code
 		$title = mysql_real_escape_string ($_POST['titre']);
 		$cont = mysql_real_escape_string ($_POST['texte']);
 		$id =(int) $_POST['id'];
+		//on update le contenu et le titre
 		$req = mysql_query("UPDATE articles SET titre='$title', contenu='$cont' WHERE id='$id';");
 		mysql_query($req);
+		//l'image prend le nom de l'id de l'article
 		$nameimg = $id;
 		header('Location:index.php');
-		
-	}else{ //sinon on ajoute
+	}
+	//sinon on ajoute
+	else{ 
 		$titre = mysql_real_escape_string ($_POST['titre']);
 		$contenu = mysql_real_escape_string ($_POST['texte']);
 		$date = time();
+		//création de contenu et titre
 		mysql_query("INSERT INTO articles(titre, contenu, date) VALUES('$titre','$contenu', '$date');");
 		$nameimg = mysql_insert_id();
 		
@@ -35,15 +42,15 @@ if(isset($_POST['titre'])){
 		</div>";
 		header('Location:index.php');
 	}
-	
+	//si il contient une image
 	if(isset($_FILES['image']) && isset($_FILES['image']['tmp_name'])){
 		$chemin_src = $_FILES['image']['tmp_name'];
-		//$nameimg = $_FILES['image']['name'];
-		
-		
+		//accède au chemin de l'image
 		
 		$chemin_dest = dirname(__FILE__)."/data/images/$nameimg.jpg";
+		//met les nom des dossiers dans un tableau
 		$verification = explode("/", $_FILES['image']['type']);
+		//on regarde si l'extension est bien jpeg
 		if($verification[1] == "jpeg"){
 			move_uploaded_file($chemin_src,$chemin_dest);
 		}
