@@ -1,2 +1,3 @@
 RewriteEngine On
-RewriteRule accueil index.php [L]
+RewriteRule ^accueil$ index.php [L]
+RewriteRule ^[a-z0-9-]+?(\d+)$ show.php?id=$1
